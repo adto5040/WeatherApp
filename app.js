@@ -16,17 +16,13 @@ function searchWeather() {
     cityName +
     '&units=metric&appid=' +
     API_KEY;
-  console.log(url);
-
   const method = 'GET';
 
   http.open(method, url);
   http.onreadystatechange = function () {
     const STATUS_CODE_OK = 200;
     if (http.readyState === XMLHttpRequest.DONE) {
-      console.log('Status: ', http.status);
       if (http.status == STATUS_CODE_OK) {
-        console.log('ResponseText: ', http.responseText);
         const data = JSON.parse(http.responseText);
         let weatherData = new Weather(
           cityName,
@@ -45,7 +41,7 @@ function searchWeather() {
 function updateWeather(weatherData) {
   weatherCity.textContent = weatherData.cityName;
   weatherDescription.textContent = weatherData.description;
-  weatherTemperatur.textContent = weatherBox.temperature;
+  weatherTemperatur.textContent = weatherData.temperature;
 
   loadingText.style.display = 'none';
   weatherBox.style.display = 'block';
